@@ -91,7 +91,7 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 
 
 function uncover(x, y, square) {
-    square.style.backgroundColor = "red";
+    square.style.backgroundColor = "lightgrey";
 
 
     if(mine_field[y][x] == 9) {
@@ -101,7 +101,9 @@ function uncover(x, y, square) {
     }
 
     if(mine_field[y][x] != 0){
-        return;}
+        square.style.backgroundImage = `url(img/num_${mine_field[y][x]}.png)`;
+        return;
+    }
 
     square.className = "mine uncovered";
 
@@ -147,6 +149,8 @@ const mine_count = 10;
 
 MakeField(field_width, field_height);
 const mine_field = RandomMines(field_width, field_height, mine_count)
+
+
 
 console.log(mine_field);
 
