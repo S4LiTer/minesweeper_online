@@ -1,6 +1,23 @@
+@font-face {
+    font-family: SevenSegment;
+    src: url("fonts/SevenSegment.ttf");
+}
+
+html {
+    font-family: SevenSegment;
+    font-size: larger;
+}
+
+#minesweeper {
+    margin: auto;
+    border: 4px solid gray;
+    width: fit-content;
+}
+
 #MineField {
-    border: 2px solid #808080;
+    border-top: 2px solid #808080;
     width: min-content;
+    margin: auto;
 }
 .line {
     display: flex;
@@ -16,4 +33,24 @@
 }
 .covered:hover {
     background-color: #808080;
+}
+
+#info {
+    padding: 20px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: rgb(200, 200, 200);
+    color: red;
+}
+
+.score {
+    display: block ruby;
+}
+
+#reset {
+    width: 45px; 
+    height: 45px; 
+    image-rendering: pixelated;
 }

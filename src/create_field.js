@@ -1,3 +1,4 @@
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -35,6 +36,9 @@ function MakeField(width, height) {
     field = document.getElementById("MineField")
     //Get field element
 
+    field.innerHTML = ""
+    //Clear previous field
+
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
         line = `<div class="line" id="${y}">`
@@ -47,7 +51,7 @@ function MakeField(width, height) {
         }
     }
 }
-
+MakeField(8, 8)
 
 
 function get_mine_count(mine_field) {
