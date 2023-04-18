@@ -90,7 +90,7 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 }
 
 
-function uncover(x, y, square) {
+function uncover(x, y, square, mine_field, field_height, field_width) {
     square.style.backgroundColor = "lightgrey";
 
 
@@ -118,8 +118,8 @@ function uncover(x, y, square) {
 
         if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
             continue
-            
-        uncover(x, nearby_y, nearby_empty_square);
+        
+        uncover(x, nearby_y, nearby_empty_square, mine_field, field_height, field_width) 
 
 
     }
@@ -135,31 +135,33 @@ function uncover(x, y, square) {
         if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
             continue
 
-        uncover(nearby_x, y, nearby_empty_square);
-
+        uncover(nearby_x, y, nearby_empty_square, mine_field, field_height, field_width);
 
     }
 }
 
 
+function setup() {
+    var field_height = 15;
+    var field_width = 20;
+    var mine_count = 30;
 
-const field_height = 5;
-const field_width = 10;
-const mine_count = 10;
-
-MakeField(field_width, field_height);
-const mine_field = RandomMines(field_width, field_height, mine_count)
+    MakeField(field_width, field_height);
+    var mine_field = RandomMines(field_width, field_height, mine_count)
 
 
 
-console.log(mine_field);
+    console.log(mine_field);
 
-const squares = document.querySelectorAll(".mine");
-squares.forEach(square => {
-    square.addEventListener('click', function handleClick(event) {
-        let x = Number(square.id.split(/[ ,]+/)[0]);
-        let y = Number(square.id.split(/[ ,]+/)[1]);
+    const squares = document.querySelectorAll(".mine");
+    squares.forEach(square => {
+        square.addEventListener('click', function handleClick(event) {
+            let x = Number(square.id.split(/[ ,]+/)[0]);
+            let y = Number(square.id.split(/[ ,]+/)[1]);
         
-        uncover(x, y, square)
+            uncover(x, y, square, mine_field, field_height, field_width)
+        });
     });
-});
+}
+
+setup();
