@@ -1,3 +1,35 @@
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+function RandomMines(width, height, mineCount) {
+    let mineField = [];
+    for(let y=0; y<height; y++){
+        let row = [];
+        for(let x=0;x<width;x++){
+            row[x]=0;
+        }
+        mineField[y]=row;
+    }
+    for(let i=0, x=0, y=0; i<mineCount;i++){
+        y=getRandomInt(0,height);
+        x=getRandomInt(0,width);
+        if(mineField[y][x]!=9){
+            mineField[y][x]=9; 
+        }
+        else{
+            i--;
+        }
+
+    }
+
+    mineField = get_mine_count(mineField);    
+    return mineField;
+}
+
 function MakeField(width, height) {
     //Get mine using document.getElementById("{line} {column}")
 
@@ -31,7 +63,7 @@ function get_mine_count(mine_field) {
             if(mine_field[y][x] > 8)
                 continue;
 
-            mine_field[y][x] = check_nearby_squares(mine_field, x, y, height, width);
+            mine_field[y][x] = check_nearby_mines(mine_field, x, y, height, width);
         }
     }
 
@@ -40,7 +72,7 @@ function get_mine_count(mine_field) {
 
 }
 
-function check_nearby_squares(mine_field, x, y, height, width) {
+function check_nearby_mines(mine_field, x, y, height, width) {
     var mine_count = 0;
 
     for(let _y = -1; _y < 2; _y++) {
@@ -60,3 +92,80 @@ function check_nearby_squares(mine_field, x, y, height, width) {
 
     return mine_count;
 }
+
+
+function uncover(x, y, square, mine_field, field_height, field_width) {
+    square.style.backgroundColor = "lightgrey";
+
+
+    if(mine_field[y][x] == 9) {
+        alert("xdlmao");
+        window.location.reload();
+        return;
+    }
+
+    if(mine_field[y][x] != 0){
+        square.style.backgroundImage = `url(img/num_${mine_field[y][x]}.png)`;
+        return;
+    }
+
+    square.className = "mine uncovered";
+
+    for(let _y = -1; _y < 2; _y++) {
+        let nearby_y = y+_y;
+        if(nearby_y < 0 || nearby_y >= field_height)
+            continue;
+            
+
+        selector = `${x} ${nearby_y}`;
+        nearby_empty_square = document.getElementById(selector);
+
+        if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
+            continue
+        
+        uncover(x, nearby_y, nearby_empty_square, mine_field, field_height, field_width) 
+
+
+    }
+
+    for(let _x = -1; _x < 2; _x++) {
+        let nearby_x = x+_x;
+        if(nearby_x < 0 || nearby_x >= field_width)
+            continue;
+
+        selector = `${nearby_x} ${y}`;
+        nearby_empty_square = document.getElementById(selector);
+
+        if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
+            continue
+
+        uncover(nearby_x, y, nearby_empty_square, mine_field, field_height, field_width);
+
+    }
+}
+
+
+function setup() {
+    var field_height = 15;
+    var field_width = 20;
+    var mine_count = 30;
+
+    MakeField(field_width, field_height);
+    var mine_field = RandomMines(field_width, field_height, mine_count)
+
+
+
+    console.log(mine_field);
+
+    const squares = document.querySelectorAll(".mine");
+    squares.forEach(square => {
+        square.addEventListener('click', function handleClick(event) {
+            let x = Number(square.id.split(/[ ,]+/)[0]);
+            let y = Number(square.id.split(/[ ,]+/)[1]);
+        
+            uncover(x, y, square, mine_field, field_height, field_width)
+        });
+    });
+}
+
+setup();
