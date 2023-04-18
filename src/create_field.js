@@ -1,9 +1,11 @@
-
 function MakeField(width, height) {
     //Get mine using document.getElementById("{line} {column}")
 
     field = document.getElementById("MineField")
     //Get field element
+
+    field.innerHTML = ""
+    //Clear previous field
 
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
@@ -12,12 +14,12 @@ function MakeField(width, height) {
         field_line = document.getElementById(y)
         for(let x = 0; x < width; x++) {
             //Create mines in lines
-            mines = `<div class="mine covered" id="${y} ${x}"></div>`
+            mines = `<div class="mine covered" id="${x} ${y}"></div>`
             field_line.innerHTML += mines
         }
     }
 }
-
+MakeField(8, 8)
 
 
 function get_mine_count(mine_field) {
