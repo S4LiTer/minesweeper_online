@@ -34,4 +34,3 @@ function show_mine_count(change) {
     mines_left += change;
     display.innerHTML = ZeroPad(mines_left, 3);
 }
-show_mine_count(0);
