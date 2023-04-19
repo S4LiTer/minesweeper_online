@@ -119,101 +119,12 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 }
 
 
-function uncover(x, y, square, mine_field, field_height, field_width) {
-    square.style.backgroundColor = "lightgrey";
-    square.className = "mine uncovered";
-
-    if(mine_field[y][x] == 9) {
-        alert("xdlmao");
-        window.location.reload();
-        return;
-    }
-
-
-    if(mine_field[y][x] != 0){
-        square.style.backgroundImage = `url(img/num_${mine_field[y][x]}.png)`;
-        return;
-    }
-
-
-    for(let _y = -1; _y < 2; _y++) {
-        let nearby_y = y+_y;
-        if(nearby_y < 0 || nearby_y >= field_height)
-            continue;
-            
-
-        selector = `${x} ${nearby_y}`;
-        nearby_empty_square = document.getElementById(selector);
-
-        if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
-            continue
-        
-        uncover(x, nearby_y, nearby_empty_square, mine_field, field_height, field_width) 
-
-
-    }
-
-    for(let _x = -1; _x < 2; _x++) {
-        let nearby_x = x+_x;
-        if(nearby_x < 0 || nearby_x >= field_width)
-            continue;
-
-        selector = `${nearby_x} ${y}`;
-        nearby_empty_square = document.getElementById(selector);
-
-        if(nearby_empty_square.className.split(/[ ,]+/)[1] != "uncovered")
-            uncover(nearby_x, y, nearby_empty_square, mine_field, field_height, field_width);
-
-
-        if(mine_field[y][nearby_x] == 0)
-            continue;
-
-
-        for(let _corner_y = -1; _corner_y < 2; _corner_y++) {
-            if(_corner_y == 0)
-                continue;
-
-            let corner_y = y+_corner_y;
-    
-
-            selector = `${x} ${corner_y}`;
-            nearby_empty_square = document.getElementById(selector);
-
-            if(nearby_empty_square == null)
-                continue;
-
-            if(mine_field[corner_y][x] == 0)
-                continue;
-
-
-            if(nearby_empty_square.className.split(/[ ,]+/)[1] != "uncovered")
-                continue;
-
-
-            selector = `${nearby_x} ${corner_y}`;
-            nearby_empty_square = document.getElementById(selector);
-
-            if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
-                continue;
-                
-            uncover(nearby_x, corner_y, nearby_empty_square, mine_field, field_height, field_width);
-        }
-        
-        
-
-    }
-}
-
-
-function setup(_height, _width, _mine_count ) {
-    var field_height = _height;
-    var field_width = _width;
-    var mine_count = _mine_count;
-
+function setup() {
     MakeField(field_width, field_height);
     var mine_field = RandomMines(field_width, field_height, mine_count);
 
     console.log(mine_field);
+    show_mine_count(0);
 
     const squares = document.querySelectorAll(".mine");
     squares.forEach(square => {
@@ -223,10 +134,26 @@ function setup(_height, _width, _mine_count ) {
 
             if(timerEndedBool)
                 StartTimer();
-        
+            
+            click_on_number(x, y, square, mine_field, false)
             uncover(x, y, square, mine_field, field_height, field_width)
         });
+
+        square.addEventListener('contextmenu', function(ev) {
+            ev.preventDefault();
+
+            flag(square);
+            return false;
+        }, false);
     });
+
+    
 }
 
-setup(10, 10, 10);
+const field_height = 30;
+const field_width = 30;
+const mine_count = 55;
+var covered_tiles = field_height*field_width;
+var mines_left = mine_count;
+
+setup();

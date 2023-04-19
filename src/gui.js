@@ -27,4 +27,10 @@ function StopTimer(){
 function ZeroPad(num, places) {
     var zero = places - num.toString().length + 1;
     return Array(+(zero > 0 && zero)).join("0") + num;
-  }
+}
+
+function show_mine_count(change) {
+    let display = document.getElementById("mines_left");
+    mines_left += change;
+    display.innerHTML = ZeroPad(mines_left, 3);
+}
