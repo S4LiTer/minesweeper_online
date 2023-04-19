@@ -95,10 +95,7 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 }
 
 
-function setup(_height, _width, _mine_count ) {
-    var field_height = _height;
-    var field_width = _width;
-    var mine_count = _mine_count;
+function setup() {
 
     MakeField(field_width, field_height);
     var mine_field = RandomMines(field_width, field_height, mine_count);
@@ -113,7 +110,8 @@ function setup(_height, _width, _mine_count ) {
 
             if(timerEndedBool)
                 StartTimer();
-        
+            
+            click_on_number(x, y, square, mine_field, false)
             uncover(x, y, square, mine_field, field_height, field_width)
         });
 
@@ -128,9 +126,9 @@ function setup(_height, _width, _mine_count ) {
     
 }
 
-let height = 10;
-let width = 10;
-let mine_count = 5;
-var covered_tiles = height*width;
+const field_height = 10;
+const field_width = 10;
+const mine_count = 5;
+var covered_tiles = field_height*field_width;
 
-setup(height, width, mine_count);
+setup();
