@@ -45,9 +45,6 @@ document.getElementById("edit").addEventListener('click', function(){
 })
 
 function reset() {
-    const field_height = 30;
-    const field_width = 30;
-    const mine_count = 55;
     StopTimer();
     playing = true;
     covered_tiles = field_height*field_width;
