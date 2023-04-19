@@ -4,21 +4,26 @@ function win() {
 }
 
 function lose() {
+    StopTimer();
     alert("you lost xdxd weak");
     window.location.reload();
 }
 
 
 function flag(square) {
-    if(square.className.split(/[ ,]+/)[1] == "covered") {
+    if(square.className.split(/[ ,]+/)[1] == "covered" && mines_left > 0) {
         square.className = "mine flagged";
         square.style.backgroundColor = "#80808080";
         square.style.backgroundImage = "url(img/flag.png)";
+
+        show_mine_count(-1);
     }
     else if(square.className.split(/[ ,]+/)[1] == "flagged") {
         square.className = "mine covered";
         square.style.backgroundColor = "#80808080";
         square.style.backgroundImage = "url(img/none.png)";
+
+        show_mine_count(1);
     }
 }
 

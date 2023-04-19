@@ -96,11 +96,11 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 
 
 function setup() {
-
     MakeField(field_width, field_height);
     var mine_field = RandomMines(field_width, field_height, mine_count);
 
     console.log(mine_field);
+
 
     const squares = document.querySelectorAll(".mine");
     squares.forEach(square => {
@@ -126,9 +126,10 @@ function setup() {
     
 }
 
-const field_height = 10;
-const field_width = 10;
-const mine_count = 5;
+const field_height = 100;
+const field_width = 100;
+const mine_count = 55;
 var covered_tiles = field_height*field_width;
+var mines_left = mine_count;
 
 setup();
