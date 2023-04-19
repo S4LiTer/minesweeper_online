@@ -166,8 +166,8 @@ window.onload = function(){
     setup();
   
     window.onkeydown= function(gfg){ 
-        gfg.preventDefault();
         if(gfg.keyCode === space_bar){ 
+            gfg.preventDefault();
             reset();
         }
     };
