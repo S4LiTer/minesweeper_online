@@ -4,26 +4,74 @@ function win() {
 }
 
 function lose() {
+    StopTimer();
     alert("you lost xdxd weak");
     window.location.reload();
 }
 
 
 function flag(square) {
-    if(square.className.split(/[ ,]+/)[1] == "covered") {
+    if(square.className.split(/[ ,]+/)[1] == "covered" && mines_left > 0) {
         square.className = "mine flagged";
         square.style.backgroundColor = "#80808080";
         square.style.backgroundImage = "url(img/flag.png)";
+
+        show_mine_count(-1);
     }
     else if(square.className.split(/[ ,]+/)[1] == "flagged") {
         square.className = "mine covered";
         square.style.backgroundColor = "#80808080";
         square.style.backgroundImage = "url(img/none.png)";
+
+        show_mine_count(1);
     }
 }
 
 
-function uncover(x, y, square, mine_field, field_height, field_width) {
+function click_on_number(x, y, square, mine_field, uncover_all) {
+    
+    if(square.className.split(/[ ,]+/)[1] != "uncovered")
+        return;
+    if(mine_field[y][x] == 0)
+        return;
+    
+    var flags_nearby = 0;
+
+    for(let _y = -1; _y < 2; _y++) {
+        var nearby_y = y+_y;
+        if(nearby_y < 0 || nearby_y >= field_height)
+            continue;
+
+        for(let _x = -1; _x < 2; _x++) {
+            var nearby_x = x+_x;
+            if(nearby_x < 0 || nearby_x >= field_width)
+                continue;
+
+            if(_x == 0 && _y == 0)
+                continue;
+
+
+            var selector = `${nearby_x} ${nearby_y}`;
+            var nearby_square = document.getElementById(selector);
+            
+            if (!uncover_all) {
+                
+                if(nearby_square.className.split(/[ ,]+/)[1] == "flagged")
+                    flags_nearby++;
+            }
+            else {
+                uncover(nearby_x, nearby_y, nearby_square, mine_field, true)
+            }
+        }
+    }
+    
+    if(flags_nearby == mine_field[y][x]) {
+        click_on_number(x, y, square, mine_field, true);
+    }
+}
+
+
+function uncover(x, y, square, mine_field) {
     if(square.className.split(/[ ,]+/)[1] != "covered")
         return;
 
@@ -52,9 +100,9 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
             
 
         selector = `${x} ${nearby_y}`;
-        nearby_empty_square = document.getElementById(selector);
+        nearby_square = document.getElementById(selector);
         
-        uncover(x, nearby_y, nearby_empty_square, mine_field, field_height, field_width) 
+        uncover(x, nearby_y, nearby_square, mine_field) 
 
 
     }
@@ -65,10 +113,10 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
             continue;
 
         selector = `${nearby_x} ${y}`;
-        nearby_empty_square = document.getElementById(selector);
+        nearby_square = document.getElementById(selector);
 
         
-        uncover(nearby_x, y, nearby_empty_square, mine_field, field_height, field_width);
+        uncover(nearby_x, y, nearby_square, mine_field);
 
 
         if(mine_field[y][nearby_x] == 0)
@@ -83,23 +131,23 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
     
 
             selector = `${x} ${corner_y}`;
-            nearby_empty_square = document.getElementById(selector);
+            nearby_square = document.getElementById(selector);
 
-            if(nearby_empty_square == null)
+            if(nearby_square == null)
                 continue;
 
             if(mine_field[corner_y][x] == 0)
                 continue;
 
 
-            if(nearby_empty_square.className.split(/[ ,]+/)[1] != "uncovered")
+            if(nearby_square.className.split(/[ ,]+/)[1] != "uncovered")
                 continue;
 
 
             selector = `${nearby_x} ${corner_y}`;
-            nearby_empty_square = document.getElementById(selector);
+            nearby_square = document.getElementById(selector);
                 
-            uncover(nearby_x, corner_y, nearby_empty_square, mine_field, field_height, field_width);
+            uncover(nearby_x, corner_y, nearby_square, mine_field);
         }
         
         
