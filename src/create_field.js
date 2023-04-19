@@ -120,6 +120,7 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 function setup() {
     MakeField(field_width, field_height);
     var mine_field = RandomMines(field_width, field_height, mine_count);
+    var already_lost = false;
 
     console.log(mine_field);
     show_mine_count(0);
@@ -130,6 +131,10 @@ function setup() {
             let x = Number(square.id.split(/[ ,]+/)[0]);
             let y = Number(square.id.split(/[ ,]+/)[1]);
 
+            if(!playing) {
+                return;
+            }
+            
             if(timerEndedBool)
                 StartTimer();
             
@@ -151,6 +156,7 @@ function setup() {
 const field_height = 30;
 const field_width = 30;
 const mine_count = 55;
+var playing =true;
 var covered_tiles = field_height*field_width;
 var mines_left = mine_count;
 
