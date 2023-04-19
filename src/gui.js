@@ -12,12 +12,12 @@ function StartTimer(){
     Timer(Date.now());
 }
 async function Timer(timeInSecondsDevidedByHundret){
-    const element = document.getElementById("time");
-    timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret-variableStartTime;
-    element.innerHTML = ZeroPad(Math.round(timeInSecondsDevidedByHundret/1000), 3);
     if(timerEndedBool){
         return 0;
     }
+    const element = document.getElementById("time");
+    timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret-variableStartTime;
+    element.innerHTML = ZeroPad(Math.round(timeInSecondsDevidedByHundret/1000), 3);
     await new Promise(r => setTimeout(r,1000));
     Timer(Date.now());
 }
