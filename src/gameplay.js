@@ -9,8 +9,17 @@ function lose() {
 }
 
 
-function flag(x, y) {
-
+function flag(square) {
+    if(square.className.split(/[ ,]+/)[1] == "covered") {
+        square.className = "mine flagged";
+        square.style.backgroundColor = "#80808080";
+        square.style.backgroundImage = "url(img/flag.png)";
+    }
+    else if(square.className.split(/[ ,]+/)[1] == "flagged") {
+        square.className = "mine covered";
+        square.style.backgroundColor = "#80808080";
+        square.style.backgroundImage = "url(img/none.png)";
+    }
 }
 
 
@@ -22,13 +31,11 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
     square.style.backgroundColor = "lightgrey";
     square.className = "mine uncovered";
 
+    covered_tiles--;
     if(mine_field[y][x] == 9) {
         lose();
     }
-
-    covered_tiles--;
-
-    if(covered_tiles == mine_count) {
+    else if(covered_tiles == mine_count) {
         win();
     }
 

@@ -120,12 +120,7 @@ function setup(_height, _width, _mine_count ) {
         square.addEventListener('contextmenu', function(ev) {
             ev.preventDefault();
 
-            let x = Number(square.id.split(/[ ,]+/)[0]);
-            let y = Number(square.id.split(/[ ,]+/)[1]);
-
-            flag(x, y);
-
-            alert('success!');
+            flag(square);
             return false;
         }, false);
     });
