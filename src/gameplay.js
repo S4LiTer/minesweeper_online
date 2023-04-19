@@ -1,12 +1,20 @@
 function win() {
-    alert("you won xd")
-    window.location.reload();
+    StopTimer();
 }
 
-function lose() {
+function lose(mine_field) {
+    for(let x = 0; x<field_width; x++) {
+        for(let y = 0; y<field_height; y++) {
+            if(mine_field[y][x] < 9)
+                continue;
+
+            var selector = `${x} ${y}`;
+            var bomb = document.getElementById(selector);
+            bomb.style.backgroundImage = "url(img/mine.png)";
+        }
+    }
+    playing = false;
     StopTimer();
-    alert("you lost xdxd weak");
-    window.location.reload();
 }
 
 
@@ -29,7 +37,6 @@ function flag(square) {
 
 
 function click_on_number(x, y, square, mine_field, uncover_all) {
-    
     if(square.className.split(/[ ,]+/)[1] != "uncovered")
         return;
     if(mine_field[y][x] == 0)
@@ -81,7 +88,8 @@ function uncover(x, y, square, mine_field) {
 
     covered_tiles--;
     if(mine_field[y][x] == 9) {
-        lose();
+        lose(mine_field);
+        return;
     }
     else if(covered_tiles == mine_count) {
         win();
