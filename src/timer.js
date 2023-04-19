@@ -9,7 +9,7 @@ function StartTimer(){
     Timer();
 }
 async function Timer(){
-    const element = document.getElementById("Timer");
+    const element = document.getElementById("time");
     timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret+1;
     element.innerHTML = timeInSecondsDevidedByHundret;
     if(timerEndedBool){
