@@ -100,7 +100,7 @@ function setup() {
     var mine_field = RandomMines(field_width, field_height, mine_count);
 
     console.log(mine_field);
-
+    show_mine_count(0);
 
     const squares = document.querySelectorAll(".mine");
     squares.forEach(square => {
