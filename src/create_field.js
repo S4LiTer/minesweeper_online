@@ -132,4 +132,15 @@ const mine_count = 55;
 var covered_tiles = field_height*field_width;
 var mines_left = mine_count;
 
-setup();
+
+window.onload = function(){
+    var space_bar = 32;
+    setup();
+  
+    window.onkeydown= function(gfg){ 
+        gfg.preventDefault();
+        if(gfg.keyCode === space_bar){ 
+            reset();
+        }
+    };
+};
