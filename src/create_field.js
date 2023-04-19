@@ -6,7 +6,6 @@ function getRandomInt(min, max) {
 }
 
 function RandomMines(width, height, mineCount) {
-    let startTime=Date.now();
     let mineField = [];
     if(mineCount<(0.5*width*height))
     {
@@ -49,8 +48,7 @@ function RandomMines(width, height, mineCount) {
 
         }
     }
-    mineField = get_mine_count(mineField); 
-    console.log(Date.now()-startTime)   
+    mineField = get_mine_count(mineField);    
     return mineField;
 }
 
