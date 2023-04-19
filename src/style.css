@@ -3,21 +3,27 @@
     src: url("fonts/Segment7Standard.otf");
 }
 
-html {
-    font-family: Segment7Standard;
-    font-size: 200%;
-}
-
 #minesweeper {
     margin: auto;
     border: 4px ridge gray;
+    background-color: rgb(180, 180, 180);
     width: fit-content;
+    position: relative;
 }
 
 #MineField {
     border-top: 2px solid #808080;
     width: min-content;
     margin: auto;
+}
+#ScoreField {
+    visibility: hidden;
+    position: absolute;
+    top: 30%;
+    text-align: center;
+    width: 100%;
+
+
 }
 .line {
     display: flex;
@@ -36,11 +42,8 @@ html {
     width: 30px;
 }
 
-.covered {
-    background-color: #80808080;
-}
 .covered:hover {
-    background-color: #808080;
+    background-color: rgb(150, 150, 150);
 }
 
 #info {
@@ -49,12 +52,13 @@ html {
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    background-color: rgb(200, 200, 200);
     color: red;
+    font-family: Segment7Standard;
+    font-size: 200%;
 }
 
-.score {
-    display: block ruby;
+#settings {
+    height: 20px;
 }
 
 #reset {
@@ -65,6 +69,7 @@ html {
 
 #time, #score {
     width: min-content;
+    height: 30px;
 }
 
 #time {
