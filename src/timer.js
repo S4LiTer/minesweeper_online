@@ -1,25 +1,29 @@
-var timeInSecondsDevidedByHundret=-1;
+var timeInSecondsDevidedByHundret=0;
 var timerEndedBool=false;
-var startTime;
+var variableStartTime;
 
 function StartTimer(){
-    timeInSecondsDevidedByHundret=-1;
+    timeInSecondsDevidedByHundret=Date.now();
     timerEndedBool=false;
-    startTime = Date.now()
-    Timer();
+    variableStartTime = Date.now()
+    Timer(Date.now());
 }
-async function Timer(){
-    const element = document.getElementById("Timer");
-    timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret+1;
-    element.innerHTML = timeInSecondsDevidedByHundret;
+async function Timer(timeInSecondsDevidedByHundret){
+    const element = document.getElementById("time");
+    timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret-variableStartTime;
+    element.innerHTML = ZeroPad(Math.round(timeInSecondsDevidedByHundret/1000), 3);
     if(timerEndedBool){
         return 0;
     }
     await new Promise(r => setTimeout(r,1000));
-    Timer();
+    Timer(Date.now());
 }
 
 function StopTimer(){
     timerEndedBool=1;
-    return Date.now()-startTime;
+    return Date.now()-variableStartTime;
 }
+function ZeroPad(num, places) {
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
+  }
