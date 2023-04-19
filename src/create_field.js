@@ -123,6 +123,8 @@ function setup(_height, _width, _mine_count ) {
             let x = Number(square.id.split(/[ ,]+/)[0]);
             let y = Number(square.id.split(/[ ,]+/)[1]);
 
+            flag(x, y);
+
             alert('success!');
             return false;
         }, false);
@@ -133,7 +135,7 @@ function setup(_height, _width, _mine_count ) {
 
 let height = 10;
 let width = 10;
-let mine_count = 1;
+let mine_count = 5;
 var covered_tiles = height*width;
 
 setup(height, width, mine_count);
