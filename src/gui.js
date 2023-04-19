@@ -37,6 +37,13 @@ function show_mine_count(change) {
     display.innerHTML = ZeroPad(mines_left, 3);
 }
 
+document.getElementById("edit").addEventListener('click', function(){
+    document.getElementById('controls').style.visibility = 'visible'
+    document.getElementById("submit").addEventListener('click', function(){
+        document.getElementById('controls').style.visibility = 'hidden'
+    })
+})
+
 function reset() {
     const field_height = 30;
     const field_width = 30;

@@ -9,7 +9,7 @@
         <div id="minesweeper">
         <div id="info">
             <div id="mines_left">000</div>
-            <img id="reset" src="img/"></img>
+            <img id="reset" src="img/happy.png"></img>
             <div id="time">000</div>
         </div>
         <div id="MineField"></div>
@@ -17,7 +17,18 @@
             <div>You managed to find all bombs in ... on map ...</div>
             <div>Your best score was ... for this map</div>
         </div>
-        <div id="settings"></div>
+        <div id="settings">
+            <div id="edit" class="button">Edit</div>
+            <div id="controls">
+                <label>Width</label>
+                <input type="number" min="1" max="100" id="field_width">
+                <label>Height</label>
+                <input type="number" min="1" max="100" id="field_height">
+                <label>Mines</label>
+                <input type="number" min="0" id="field_mines">
+                <div id="submit" class="button">Change</div>
+            </div>
+        </div>
 
         </div>
     </body>

@@ -58,7 +58,8 @@
 }
 
 #settings {
-    height: 20px;
+    display: flex;
+    align-items: center;
 }
 
 #reset {
@@ -74,4 +75,25 @@
 
 #time {
     text-align: right;
+}
+
+.button {
+    width: 50px;
+    padding: 5px;
+    margin: 2px;
+    text-decoration: underline;
+    color: white;
+    background-color: #808080;
+    text-align: center;
+    margin-right: 35px;
+}
+
+#controls {
+    visibility: hidden;
+    display: ruby;
+}
+
+#controls input {
+    width: 60px;
+    margin-right: 20px;
 }
