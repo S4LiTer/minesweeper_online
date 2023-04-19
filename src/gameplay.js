@@ -15,6 +15,10 @@ function flag(x, y) {
 
 
 function uncover(x, y, square, mine_field, field_height, field_width) {
+    if(square.className.split(/[ ,]+/)[1] != "covered")
+        return;
+
+
     square.style.backgroundColor = "lightgrey";
     square.className = "mine uncovered";
 
@@ -42,9 +46,6 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
 
         selector = `${x} ${nearby_y}`;
         nearby_empty_square = document.getElementById(selector);
-
-        if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
-            continue
         
         uncover(x, nearby_y, nearby_empty_square, mine_field, field_height, field_width) 
 
@@ -59,8 +60,8 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
         selector = `${nearby_x} ${y}`;
         nearby_empty_square = document.getElementById(selector);
 
-        if(nearby_empty_square.className.split(/[ ,]+/)[1] != "uncovered")
-            uncover(nearby_x, y, nearby_empty_square, mine_field, field_height, field_width);
+        
+        uncover(nearby_x, y, nearby_empty_square, mine_field, field_height, field_width);
 
 
         if(mine_field[y][nearby_x] == 0)
@@ -90,9 +91,6 @@ function uncover(x, y, square, mine_field, field_height, field_width) {
 
             selector = `${nearby_x} ${corner_y}`;
             nearby_empty_square = document.getElementById(selector);
-
-            if(nearby_empty_square.className.split(/[ ,]+/)[1] == "uncovered")
-                continue;
                 
             uncover(nearby_x, corner_y, nearby_empty_square, mine_field, field_height, field_width);
         }
