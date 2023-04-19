@@ -1,5 +1,6 @@
+
 var timeInSecondsDevidedByHundret=0;
-var timerEndedBool=false;
+var timerEndedBool=true;
 var variableStartTime;
 
 function StartTimer(){
