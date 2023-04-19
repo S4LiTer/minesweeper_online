@@ -1,16 +1,16 @@
 @font-face {
-    font-family: SevenSegment;
-    src: url("fonts/SevenSegment.ttf");
+    font-family: Segment7Standard;
+    src: url("fonts/Segment7Standard.otf");
 }
 
 html {
-    font-family: SevenSegment;
-    font-size: larger;
+    font-family: Segment7Standard;
+    font-size: 200%;
 }
 
 #minesweeper {
     margin: auto;
-    border: 4px solid gray;
+    border: 4px ridge gray;
     width: fit-content;
 }
 
@@ -22,12 +22,20 @@ html {
 .line {
     display: flex;
 }
-.mine { 
+.mine, .mine-small { 
     background-size:cover;
-    width: 30px;
     aspect-ratio: 1/1;
     border: .5px solid #808080;
 } 
+
+.mine-small {
+    width: 65px;
+}
+
+.mine {
+    width: 30px;
+}
+
 .covered {
     background-color: #80808080;
 }
@@ -53,4 +61,12 @@ html {
     width: 45px; 
     height: 45px; 
     image-rendering: pixelated;
+}
+
+#time, #score {
+    width: min-content;
+}
+
+#time {
+    text-align: right;
 }
