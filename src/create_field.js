@@ -7,25 +7,47 @@ function getRandomInt(min, max) {
 
 function RandomMines(width, height, mineCount) {
     let mineField = [];
-    for(let y=0; y<height; y++){
-        let row = [];
-        for(let x=0;x<width;x++){
-            row[x]=0;
+    if(mineCount<(0.5*width*height))
+    {
+        for(let y=0; y<height; y++){
+            let row = [];
+            for(let x=0;x<width;x++){
+                row[x]=0;
+            }
+            mineField[y]=row;
         }
-        mineField[y]=row;
-    }
-    for(let i=0, x=0, y=0; i<mineCount;i++){
-        y=getRandomInt(0,height);
-        x=getRandomInt(0,width);
-        if(mineField[y][x]!=9){
-            mineField[y][x]=9; 
-        }
-        else{
-            i--;
-        }
+        for(let i=0, x=0, y=0; i<mineCount;i++){
+            y=getRandomInt(0,height);
+            x=getRandomInt(0,width);
+            if(mineField[y][x]!=9){
+                mineField[y][x]=9; 
+            }
+            else{
+                i--;
+            }
 
+        }
     }
+    else{
+        for(let y=0; y<height; y++){
+            let row = [];
+            for(let x=0;x<width;x++){
+                row[x]=9;
+            }
+            mineField[y]=row;
+        }
+        for(let i=0, x=0, y=0; i<(width*height-mineCount);i++){
+            y=getRandomInt(0,height);
+            x=getRandomInt(0,width);
+            if(mineField[y][x]!=0){
+                mineField[y][x]=0; 
+            }
+            else{
+                i--;
+            }
 
+        }
+    }
     mineField = get_mine_count(mineField);    
     return mineField;
 }
