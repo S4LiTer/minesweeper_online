@@ -119,6 +119,8 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 
 function setup() {
     MakeField(field_width, field_height);
+
+    console.log(mine_count);
     var mine_field = RandomMines(field_width, field_height, mine_count);
     var already_lost = false;
 
@@ -156,7 +158,6 @@ function setup() {
 
     
 }
-
 window.onload = function(){
     var space_bar = 32;
     setup();
