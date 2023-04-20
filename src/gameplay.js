@@ -95,8 +95,6 @@ function uncover(x, y, square, mine_field) {
         win();
     }
 
-    AI.uncover(x, y, mine_field[y][x])
-
     if(mine_field[y][x] != 0){
         square.style.backgroundImage = `url(img/num_${mine_field[y][x]}.png)`;
         return;
