@@ -56,12 +56,12 @@ el.addEventListener('click', function handleClick(event) {
 });
 
 document.getElementById("edit").addEventListener('click', function(){
-    document.getElementById('controls').style.visibility = 'visible'
-    document.getElementById('edit').style.visibility = 'hidden'
+    document.getElementById('controls').style.display = 'flex'
+    document.getElementById('edit').style.display = 'none'
 })
 document.getElementById("submit").addEventListener('click', function(){
-    document.getElementById('controls').style.visibility = 'hidden'
-    document.getElementById('edit').style.visibility = 'visible'
+    document.getElementById('controls').style.display = 'none'
+    document.getElementById('edit').style.display = 'block'
     field_width = parseInt(document.getElementById('field_width').value)
     field_height = parseInt(document.getElementById('field_height').value)
     mine_count = parseInt(document.getElementById('field_mines').value)

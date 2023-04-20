@@ -5,32 +5,33 @@
         <script defer type="text/javascript" src="src/create_field.js"></script>
         <script defer type="text/javascript" src="src/gameplay.js"></script>
         <link rel="stylesheet" href="src/style.css">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     </head>
     <body>
         <div id="minesweeper">
-        <div id="info">
-            <div id="mines_left">000</div>
-            <img id="reset" src="img/happy.png"></img>
-            <div id="time">000</div>
-        </div>
-        <div id="MineField"></div>
-        <div id="ScoreField">
-            <div>You managed to find all bombs in ... on map ...</div>
-            <div>Your best score was ... for this map</div>
-        </div>
-        <div id="settings">
             <div id="edit" class="button">Edit</div>
             <div id="controls">
-                <label>Width</label>
-                <input type="number" min="1" max="100" id="field_width">
-                <label>Height</label>
-                <input type="number" min="1" max="100" id="field_height">
-                <label>Mines</label>
-                <input type="number" min="0" id="field_mines">
+                <div><label>Width: </label><input type="number" min="1" max="100" id="field_width"></div>
+                <div><label>Height: </label><input type="number" min="1" max="100" id="field_height"></div>
+                <div><label>Mines: </label><input type="number" min="0" id="field_mines"></div>
                 <div id="submit" class="button">Change</div>
             </div>
-        </div>
-
+            <div id="info">
+                <div id="mine_score">
+                    <div id="mines_left">000</div>
+                    <div class="ssegbg_m">888</div>
+                </div>
+                <img id="reset" src="img/happy.png"></img>
+                <div id="play_time">
+                    <div id="time">000 </div>
+                    <div class="ssegbg_t">888</div>
+                </div>
+            </div>
+            <div id="MineField"></div>
+            <div id="ScoreField">
+                <div>You managed to find all bombs in ... on map ...</div>
+                <div>Your best score was ... for this map</div>
+            </div>
         </div>
     </body>
 </html>
