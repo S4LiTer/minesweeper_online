@@ -61,7 +61,7 @@ function MakeField(width, height) {
     field.innerHTML = ""
     //Clear previous field
 
-    MineType = width < 7 ? "mine-small" : "mine"
+    MineType = "mine"
 
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
@@ -119,12 +119,15 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 
 function setup() {
     MakeField(field_width, field_height);
-
-    console.log(mine_count);
+    AI.generate_field(field_height, field_width)
+    
     var mine_field = RandomMines(field_width, field_height, mine_count);
-    var already_lost = false;
+    mine_field = [[9, 2, 1],
+                  [1, 2, 9],
+                  [0, 1, 1]]
 
-    console.log(mine_field);
+                  
+    uncover(0, 2, document.getElementById('0 2'), mine_field)
     show_mine_count(0);
 
     const squares = document.querySelectorAll(".mine");
@@ -155,9 +158,9 @@ function setup() {
     
 }
 
-const field_height = 30;
-const field_width = 30;
-const mine_count = 170;
+const field_height = 3;
+const field_width = 3;
+const mine_count = 2;
 var playing =true;
 var covered_tiles = field_height*field_width;
 var mines_left = mine_count;
