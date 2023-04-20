@@ -23,6 +23,8 @@ class minesweeperAI {
 
 
     predict() {
-        for(y )
+        for(let y = 0; y < this.height; y++ ) {
+            
+        }
     }
 }
