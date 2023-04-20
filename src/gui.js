@@ -3,7 +3,9 @@ var timeInSecondsDevidedByHundret=0;
 var timerEndedBool=true;
 var variableStartTime;
 
-
+var field_height = 30;
+var field_width = 30;
+var mine_count = 55;
 
 function StartTimer(){
     timeInSecondsDevidedByHundret=Date.now();
@@ -37,17 +39,7 @@ function show_mine_count(change) {
     display.innerHTML = ZeroPad(mines_left, 3);
 }
 
-document.getElementById("edit").addEventListener('click', function(){
-    document.getElementById('controls').style.visibility = 'visible'
-    document.getElementById("submit").addEventListener('click', function(){
-        document.getElementById('controls').style.visibility = 'hidden'
-    })
-})
-
 function reset() {
-    const field_height = 30;
-    const field_width = 30;
-    const mine_count = 55;
     StopTimer();
     playing = true;
     covered_tiles = field_height*field_width;
@@ -59,3 +51,16 @@ let el = document.getElementById("reset");
 el.addEventListener('click', function handleClick(event) {
     reset()
 });
+
+document.getElementById("edit").addEventListener('click', function(){
+    document.getElementById('controls').style.visibility = 'visible'
+    document.getElementById('edit').style.visibility = 'hidden'
+})
+document.getElementById("submit").addEventListener('click', function(){
+    document.getElementById('controls').style.visibility = 'hidden'
+    document.getElementById('edit').style.visibility = 'visible'
+    field_width = document.getElementById('field_width').value
+    field_height = document.getElementById('field_height').value
+    mine_count = document.getElementById('field_mines').value 
+    reset()
+})

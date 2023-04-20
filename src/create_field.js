@@ -153,9 +153,6 @@ function setup() {
     
 }
 
-const field_height = 30;
-const field_width = 30;
-const mine_count = 55;
 var playing =true;
 var covered_tiles = field_height*field_width;
 var mines_left = mine_count;
