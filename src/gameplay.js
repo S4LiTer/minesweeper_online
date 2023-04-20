@@ -162,3 +162,7 @@ function uncover(x, y, square, mine_field) {
 
     }
 }
+var help_button=0;
+function HelpFunction(){
+    help_button=1;
+}

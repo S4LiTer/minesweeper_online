@@ -144,8 +144,20 @@ function setup() {
             if(timerEndedBool)
                 StartTimer();
             
+            if(help_button){
+                if(mine_field[y][x]==9){
+                    flag(square);
+                }
+                else{
+                    uncover(x, y, square, mine_field, field_height, field_width);
+                }
+                help_button=0;
+            }
+            
+            else{
             click_on_number(x, y, square, mine_field, false)
             uncover(x, y, square, mine_field, field_height, field_width)
+            }
         });
 
         square.addEventListener('contextmenu', function(ev) {
