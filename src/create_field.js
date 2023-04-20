@@ -124,6 +124,10 @@ function setup() {
     var mine_field = RandomMines(field_width, field_height, mine_count);
     var already_lost = false;
 
+    playing =true;
+    covered_tiles = field_height*field_width;
+    mines_left = mine_count;
+
     console.log(mine_field);
     show_mine_count(0);
 
@@ -154,18 +158,6 @@ function setup() {
 
     
 }
-
-const field_height = 30;
-const field_width = 30;
-const mine_count = 170;
-var playing =true;
-var covered_tiles = field_height*field_width;
-var mines_left = mine_count;
-var mine_field_covered;
-
-var AI = new minesweeperAI(field_height, field_width);
-
-
 window.onload = function(){
     var space_bar = 32;
     setup();
