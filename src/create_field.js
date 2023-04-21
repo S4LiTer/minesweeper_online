@@ -61,8 +61,6 @@ function MakeField(width, height) {
     field.innerHTML = ""
     //Clear previous field
 
-    MineType = width < 7 ? ' style="width: 65px;"' : ""
-
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
         line = `<div class="line" id="${y}">`
@@ -70,7 +68,7 @@ function MakeField(width, height) {
         field_line = document.getElementById(y)
         for(let x = 0; x < width; x++) {
             //Create mines in lines
-            mines = `<div class="mine covered" id="${x} ${y}"${MineType}></div>`
+            mines = `<div class="mine covered" id="${x} ${y}"></div>`
             field_line.innerHTML += mines
         }
     }
