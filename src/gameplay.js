@@ -162,7 +162,8 @@ function uncover(x, y, square, mine_field) {
 
     }
 }
+
 var help_button=0;
-function HelpFunction(){
+document.getElementById("help").addEventListener('click', function() {
     help_button=1;
-}
+})
