@@ -95,7 +95,6 @@ function uncover(x, y, square, mine_field) {
         win();
     }
 
-
     if(mine_field[y][x] != 0){
         square.style.backgroundImage = `url(img/num_${mine_field[y][x]}.png)`;
         return;
@@ -162,4 +161,8 @@ function uncover(x, y, square, mine_field) {
         
 
     }
+}
+var help_button=0;
+function HelpFunction(){
+    help_button=1;
 }
