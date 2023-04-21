@@ -56,14 +56,36 @@ el.addEventListener('click', function handleClick(event) {
 });
 
 document.getElementById("edit").addEventListener('click', function(){
-    document.getElementById('controls').style.display = 'grid'
-    document.getElementById('edit').style.display = 'none'
+    controlField = document.getElementById('controls').style
+    switch(controlField.display) {
+        case '':
+            controlField.display = 'grid'
+            break;
+        case 'none':
+            controlField.display = 'grid'
+            break;
+        case 'grid':
+            controlField.display = 'none'
+            break; 
+    }
+    document.getElementById('field_width').value = field_width
+    document.getElementById('field_height').value = field_height
+    document.getElementById('field_mines').value = mine_count
 })
 document.getElementById("submit").addEventListener('click', function(){
     document.getElementById('controls').style.display = 'none'
     document.getElementById('edit').style.display = 'block'
-    field_width = parseInt(document.getElementById('field_width').value)
-    field_height = parseInt(document.getElementById('field_height').value)
-    mine_count = parseInt(document.getElementById('field_mines').value)
+    let us_width = parseInt(document.getElementById('field_width').value)
+    let us_height = parseInt(document.getElementById('field_height').value)
+    let us_count = parseInt(document.getElementById('field_mines').value)
+
+    us_width = us_width < 1 || isNaN(us_width) ? field_width : us_width 
+    us_height = us_height < 1 || isNaN(us_height) ? field_height : us_height
+    us_count = us_count > us_width * us_height || isNaN(us_count) ? mine_count : us_count
+
+    field_width = us_width
+    field_height = us_height
+    mine_count = us_count
+
     reset()
 })
