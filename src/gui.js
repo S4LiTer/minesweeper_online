@@ -56,7 +56,7 @@ el.addEventListener('click', function handleClick(event) {
 });
 
 document.getElementById("edit").addEventListener('click', function(){
-    document.getElementById('controls').style.display = 'flex'
+    document.getElementById('controls').style.display = 'grid'
     document.getElementById('edit').style.display = 'none'
 })
 document.getElementById("submit").addEventListener('click', function(){
