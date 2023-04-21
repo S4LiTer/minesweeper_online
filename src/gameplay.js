@@ -21,14 +21,14 @@ function lose(mine_field) {
 function flag(square) {
     if(square.className.split(/[ ,]+/)[1] == "covered" && mines_left > 0) {
         square.className = "mine flagged";
-        square.style.backgroundColor = "#80808080";
+
         square.style.backgroundImage = "url(img/flag.png)";
 
         show_mine_count(-1);
     }
     else if(square.className.split(/[ ,]+/)[1] == "flagged") {
         square.className = "mine covered";
-        square.style.backgroundColor = "#80808080";
+
         square.style.backgroundImage = "url(img/none.png)";
 
         show_mine_count(1);
@@ -83,7 +83,7 @@ function uncover(x, y, square, mine_field) {
         return;
 
 
-    square.style.backgroundColor = "lightgrey";
+
     square.className = "mine uncovered";
 
     covered_tiles--;
@@ -94,8 +94,6 @@ function uncover(x, y, square, mine_field) {
     else if(covered_tiles == mine_count) {
         win();
     }
-
-    AI.uncover(x, y, mine_field[y][x])
 
     if(mine_field[y][x] != 0){
         square.style.backgroundImage = `url(img/num_${mine_field[y][x]}.png)`;
@@ -164,3 +162,8 @@ function uncover(x, y, square, mine_field) {
 
     }
 }
+
+var help_button=0;
+document.getElementById("help").addEventListener('click', function() {
+    help_button=1;
+})

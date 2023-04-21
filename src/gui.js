@@ -1,9 +1,14 @@
-
 var timeInSecondsDevidedByHundret=0;
 var timerEndedBool=true;
 var variableStartTime;
 
+var field_height = 30;
+var field_width = 30;
+var mine_count = 55;
 
+var playing =true;
+var covered_tiles = field_height*field_width;
+var mines_left = mine_count;
 
 function StartTimer(){
     timeInSecondsDevidedByHundret=Date.now();
@@ -12,12 +17,12 @@ function StartTimer(){
     Timer(Date.now());
 }
 async function Timer(timeInSecondsDevidedByHundret){
-    const element = document.getElementById("time");
-    timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret-variableStartTime;
-    element.innerHTML = ZeroPad(Math.round(timeInSecondsDevidedByHundret/1000), 3);
     if(timerEndedBool){
         return 0;
     }
+    const element = document.getElementById("time");
+    timeInSecondsDevidedByHundret=timeInSecondsDevidedByHundret-variableStartTime;
+    element.innerHTML = ZeroPad(Math.round(timeInSecondsDevidedByHundret/1000), 3);
     await new Promise(r => setTimeout(r,1000));
     Timer(Date.now());
 }
@@ -37,13 +42,6 @@ function show_mine_count(change) {
     display.innerHTML = ZeroPad(mines_left, 3);
 }
 
-document.getElementById("edit").addEventListener('click', function(){
-    document.getElementById('controls').style.visibility = 'visible'
-    document.getElementById("submit").addEventListener('click', function(){
-        document.getElementById('controls').style.visibility = 'hidden'
-    })
-})
-
 function reset() {
     StopTimer();
     playing = true;
@@ -56,3 +54,16 @@ let el = document.getElementById("reset");
 el.addEventListener('click', function handleClick(event) {
     reset()
 });
+
+document.getElementById("edit").addEventListener('click', function(){
+    document.getElementById('controls').style.display = 'grid'
+    document.getElementById('edit').style.display = 'none'
+})
+document.getElementById("submit").addEventListener('click', function(){
+    document.getElementById('controls').style.display = 'none'
+    document.getElementById('edit').style.display = 'block'
+    field_width = parseInt(document.getElementById('field_width').value)
+    field_height = parseInt(document.getElementById('field_height').value)
+    mine_count = parseInt(document.getElementById('field_mines').value)
+    reset()
+})

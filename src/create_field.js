@@ -61,8 +61,11 @@ function MakeField(width, height) {
     field.innerHTML = ""
     //Clear previous field
 
+<<<<<<< HEAD
     MineType = "mine"
 
+=======
+>>>>>>> master
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
         line = `<div class="line" id="${y}">`
@@ -70,7 +73,7 @@ function MakeField(width, height) {
         field_line = document.getElementById(y)
         for(let x = 0; x < width; x++) {
             //Create mines in lines
-            mines = `<div class="${MineType} covered" id="${x} ${y}"></div>`
+            mines = `<div class="mine covered" id="${x} ${y}"></div>`
             field_line.innerHTML += mines
         }
     }
@@ -126,8 +129,16 @@ function setup() {
                   [1, 2, 9],
                   [0, 1, 1]]
 
+<<<<<<< HEAD
                   
     uncover(0, 2, document.getElementById('0 2'), mine_field)
+=======
+    playing =true;
+    covered_tiles = field_height*field_width;
+    mines_left = mine_count;
+
+    console.log(mine_field);
+>>>>>>> master
     show_mine_count(0);
 
     const squares = document.querySelectorAll(".mine");
@@ -143,8 +154,20 @@ function setup() {
             if(timerEndedBool)
                 StartTimer();
             
+            if(help_button){
+                if(mine_field[y][x]==9){
+                    flag(square);
+                }
+                else{
+                    uncover(x, y, square, mine_field, field_height, field_width);
+                }
+                help_button=0;
+            }
+            
+            else{
             click_on_number(x, y, square, mine_field, false)
             uncover(x, y, square, mine_field, field_height, field_width)
+            }
         });
 
         square.addEventListener('contextmenu', function(ev) {
@@ -157,6 +180,7 @@ function setup() {
 
     
 }
+<<<<<<< HEAD
 
 const field_height = 3;
 const field_width = 3;
@@ -169,6 +193,8 @@ var mine_field_covered;
 var AI = new minesweeperAI(field_height, field_width);
 
 
+=======
+>>>>>>> master
 window.onload = function(){
     var space_bar = 32;
     setup();
