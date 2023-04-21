@@ -58,6 +58,10 @@
 
 }
 
+#reset:active, .button:active{
+    border: 4px inset #dbdbdb;
+}
+
 #submit {
     margin: 5 auto;
 }
@@ -117,12 +121,7 @@
     width: 32;
     padding: 5px;
     aspect-ratio: 1/1;
-    image-rendering: pixelated;
     border: 4px outset #dbdbdb;
-}
-
-#reset:hover, .button:hover{
-    border: 4px inset #dbdbdb;
 }
 
 #MineField {
