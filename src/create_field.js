@@ -61,8 +61,6 @@ function MakeField(width, height) {
     field.innerHTML = ""
     //Clear previous field
 
-    MineType = width < 7 ? "mine-small" : "mine"
-
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
         line = `<div class="line" id="${y}">`
@@ -70,7 +68,7 @@ function MakeField(width, height) {
         field_line = document.getElementById(y)
         for(let x = 0; x < width; x++) {
             //Create mines in lines
-            mines = `<div class="${MineType} covered" id="${x} ${y}"></div>`
+            mines = `<div class="mine covered" id="${x} ${y}"></div>`
             field_line.innerHTML += mines
         }
     }
@@ -144,8 +142,20 @@ function setup() {
             if(timerEndedBool)
                 StartTimer();
             
+            if(help_button){
+                if(mine_field[y][x]==9){
+                    flag(square);
+                }
+                else{
+                    uncover(x, y, square, mine_field, field_height, field_width);
+                }
+                help_button=0;
+            }
+            
+            else{
             click_on_number(x, y, square, mine_field, false)
             uncover(x, y, square, mine_field, field_height, field_width)
+            }
         });
 
         square.addEventListener('contextmenu', function(ev) {
