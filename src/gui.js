@@ -47,6 +47,8 @@ function reset() {
     playing = true;
     covered_tiles = field_height*field_width;
     mines_left = mine_count;
+    document.getElementById("ScoreField").style.visibility = "hidden"
+    document.getElementById("reset").src = `img/happy.png`
     setup()
 }
 
@@ -86,6 +88,26 @@ document.getElementById("submit").addEventListener('click', function(){
     field_width = us_width
     field_height = us_height
     mine_count = us_count
+
+
+    if(field_width < 10) {
+        document.getElementById('reset').style.display = 'none'
+    }
+    else {
+        document.getElementById('reset').style.display = 'block'        
+    }
+    if(field_width < 7) {
+        document.getElementById('play_time').style.display = 'none'
+    }
+    else {
+        document.getElementById('play_time').style.display = 'block'
+    }
+    if(field_width < 4) {
+        document.getElementById('info').style.display = 'none'
+    }
+    else {
+        document.getElementById('info').style.display = 'flex'
+    }
 
     reset()
 })

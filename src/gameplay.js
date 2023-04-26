@@ -1,5 +1,9 @@
 function win() {
-    StopTimer();
+    let time = StopTimer();
+    document.getElementById("end_time").innerHTML = time / 1000
+    document.getElementById("end_map").innerHTML = `${field_width}x${field_height}`
+    document.getElementById("ScoreField").style.visibility = "visible"
+    document.getElementById("reset").src = `img/win.png`
 }
 
 function lose(mine_field) {
@@ -15,6 +19,7 @@ function lose(mine_field) {
     }
     playing = false;
     StopTimer();
+    document.getElementById("reset").src = `img/sad.png`
 }
 
 
