@@ -61,11 +61,6 @@ function MakeField(width, height) {
     field.innerHTML = ""
     //Clear previous field
 
-<<<<<<< HEAD
-    MineType = "mine"
-
-=======
->>>>>>> master
     for(let y = 0; y < height; y++) {
         //Create lines of Mine field
         line = `<div class="line" id="${y}">`
@@ -122,24 +117,23 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 
 function setup() {
     MakeField(field_width, field_height);
-    AI.generate_field(field_height, field_width)
     
     var mine_field = RandomMines(field_width, field_height, mine_count);
-    mine_field = [[9, 2, 1],
-                  [1, 2, 9],
-                  [0, 1, 1]]
-
-<<<<<<< HEAD
-                  
-    uncover(0, 2, document.getElementById('0 2'), mine_field)
-=======
-    playing =true;
-    covered_tiles = field_height*field_width;
-    mines_left = mine_count;
-
-    console.log(mine_field);
->>>>>>> master
+    AI.generate_field(field_height, field_width, mine_count);
+    /*
+    mine_field = [[0, 0, 0, 0, 0, 9, 0, 0],
+                  [0, 0, 0, 0, 0, 9, 0, 0],
+                  [0, 0, 0, 9, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 9],
+                  [0, 0, 0, 9, 0, 0, 0, 9]]
+    
+    mine_field = get_mine_count(mine_field);
+    
+    
+    uncover(0, 2, document.getElementById('0 2'), mine_field)*/
+    
     show_mine_count(0);
+    _mine_field = mine_field;
 
     const squares = document.querySelectorAll(".mine");
     squares.forEach(square => {
@@ -180,21 +174,9 @@ function setup() {
 
     
 }
-<<<<<<< HEAD
 
-const field_height = 3;
-const field_width = 3;
-const mine_count = 2;
-var playing =true;
-var covered_tiles = field_height*field_width;
-var mines_left = mine_count;
-var mine_field_covered;
+var AI = new minesweeperAI();
 
-var AI = new minesweeperAI(field_height, field_width);
-
-
-=======
->>>>>>> master
 window.onload = function(){
     var space_bar = 32;
     setup();

@@ -2,9 +2,10 @@ var timeInSecondsDevidedByHundret=0;
 var timerEndedBool=true;
 var variableStartTime;
 
-var field_height = 30;
-var field_width = 30;
-var mine_count = 55;
+var field_height = 20;
+var field_width = 20;
+var mine_count = 75;
+
 
 var playing =true;
 var covered_tiles = field_height*field_width;
