@@ -117,17 +117,23 @@ function check_nearby_mines(mine_field, x, y, height, width) {
 
 function setup() {
     MakeField(field_width, field_height);
-
-    console.log(mine_count);
+    
     var mine_field = RandomMines(field_width, field_height, mine_count);
-    var already_lost = false;
-
-    playing =true;
-    covered_tiles = field_height*field_width;
-    mines_left = mine_count;
-
-    console.log(mine_field);
+    AI.generate_field(field_height, field_width, mine_count);
+    /*
+    mine_field = [[0, 0, 0, 0, 0, 9, 0, 0],
+                  [0, 0, 0, 0, 0, 9, 0, 0],
+                  [0, 0, 0, 9, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 9],
+                  [0, 0, 0, 9, 0, 0, 0, 9]]
+    
+    mine_field = get_mine_count(mine_field);
+    
+    
+    uncover(0, 2, document.getElementById('0 2'), mine_field)*/
+    
     show_mine_count(0);
+    _mine_field = mine_field;
 
     const squares = document.querySelectorAll(".mine");
     squares.forEach(square => {
@@ -168,6 +174,9 @@ function setup() {
 
     
 }
+
+var AI = new minesweeperAI();
+
 window.onload = function(){
     var space_bar = 32;
     setup();
