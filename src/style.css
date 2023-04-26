@@ -55,7 +55,12 @@
     border: 4px outset #dbdbdb;
     background-color: rgb(180, 180, 180);
     color: #303030;
+    cursor: pointer;
+}
 
+button::selection {
+    background-color: transparent;
+    color: #ff0000;
 }
 
 #reset:active, .button:active{
@@ -131,13 +136,21 @@
 }
 
 #ScoreField {
-    position: absolute;
+    position: fixed;
     visibility: hidden;
-    margin: auto;
     text-align: center;
     width: 100%;
-    height: 100%;
-    top: 0;
+    left: 0px;
+    top: 130px;
+}
+
+#ScoreField div {
+    background-color: rgb(180, 180, 180);
+    border: 4px inset #dbdbdb;
+    width: fit-content;
+    margin: auto;
+    font-size: 150%;
+    padding: 20px;
 }
 
 .line {
