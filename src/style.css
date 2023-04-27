@@ -141,12 +141,13 @@ button::selection {
     text-align: center;
     width: 100%;
     left: 0px;
-    top: 130px;
+    top: 140px;
 }
 
 #ScoreField div {
     background-color: rgb(180, 180, 180);
     border: 4px inset #dbdbdb;
+    outline: 4px solid rgb(180, 180, 180);
     width: fit-content;
     margin: auto;
     font-size: 150%;
