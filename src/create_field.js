@@ -121,16 +121,16 @@ function setup() {
     var mine_field = RandomMines(field_width, field_height, mine_count);
     AI.generate_field(field_height, field_width, mine_count);
     /*
-    mine_field = [[0, 0, 0, 0, 0, 9, 0, 0],
-                  [0, 0, 0, 0, 0, 9, 0, 0],
-                  [0, 0, 0, 9, 0, 0, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0, 9],
-                  [0, 0, 0, 9, 0, 0, 0, 9]]
+    mine_field = [[0, 9, 0, 0, 0, 0, 0, 0],
+                  [9, 0, 9, 0, 0, 0, 0, 0],
+                  [0, 9, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0, 0]]
     
     mine_field = get_mine_count(mine_field);
     
     
-    uncover(0, 2, document.getElementById('0 2'), mine_field)*/
+    uncover(1,1, document.getElementById('1 1'), mine_field)*/
     
     show_mine_count(0);
     _mine_field = mine_field;

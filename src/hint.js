@@ -1,4 +1,4 @@
-var depth = 0;
+var QQ = 0;
 
 class minesweeperAI {
 constructor(height, width, total_mine_count) {
@@ -7,7 +7,7 @@ constructor(height, width, total_mine_count) {
 
 generate_field(height, width, total_mine_count) {
     this.total_mine_count = total_mine_count;
-    this.max_depth = 0;
+    this.max_valid_iterations = 500;
     this.height = height;
     this.width = width;
     this.completed = false;
@@ -53,6 +53,7 @@ play() {
 
 predict() {
 
+
     let uncovered_tiles_left = 0;
 
     for(let y = 0; y < this.height; y++ ) {
@@ -62,25 +63,30 @@ predict() {
             }
         }
     }
-
-    if((uncovered_tiles_left-this.total_mine_count) == 0) {
+    let hidden_mines = (uncovered_tiles_left-this.total_mine_count);
+    if(hidden_mines == 0) {
         console.log("already solved");
         return true;
     }
 
-    console.log("uncovered tiles left:",(uncovered_tiles_left-this.total_mine_count));
+
+
+    console.log("uncovered tiles left:",hidden_mines);
 
     this.valid_iterations = 0;
+    QQ = 0;
     this.valid_mine_fields = [];
     let local_mine_field = this.copy_matrix(this.covered_minefield);
     let result = this.create_collapse_array(local_mine_field)
 
-    console.log("valid iterations: ", this.valid_iterations);
     
 
     if(this.valid_iterations) {
         this.create_probability_table()
         this.uncover_by_probability();
+    
+        console.log("\nunique valid iterations:",this.valid_iterations);
+        console.log("total valid iterations: ", QQ);
     }
 
     return false;
@@ -111,7 +117,6 @@ create_collapse_array(local_mine_field) {
     }
 
     var collapse_array = [];
-
     for(let num_index = 0; num_index < all_numbers.length; num_index++) {
         let num_x = all_numbers[num_index][0];
         let num_y = all_numbers[num_index][1];
@@ -121,9 +126,15 @@ create_collapse_array(local_mine_field) {
 
         collapse_array.push([numlist, mine_count]);
     }
-
+    
     this.fill_obvious(local_mine_field, all_numbers);
-    this.collapse(local_mine_field, collapse_array, 0);
+    let changed = this.clear_obvious(local_mine_field, all_numbers);
+    
+    if(!changed)
+        {
+            console.log("Proceeding with probability option");
+            this.collapse(local_mine_field, collapse_array, 0);
+        }
 }
 
 
@@ -137,7 +148,7 @@ create_probability_table() {
             
             for(let valid_index = 0; valid_index < this.valid_iterations; valid_index++) {
                 if(numbers_around == 0) {
-                    mines = this.valid_iterations/2;
+                    mines = this.valid_iterations;
                     break;
                 }
                 else if(this.valid_mine_fields[valid_index][y][x] == 9) {
@@ -160,7 +171,7 @@ uncover_by_probability() {
 
     for(let y = 0; y < this.height; y++ ) {
         for(let x = 0; x < this.width; x++ ) {
-            if(this.probability_table[y][x] < 5 && this.probability_table[y][x] > -1) {
+            if(this.probability_table[y][x] < 10 && this.probability_table[y][x] >= 0) {
                 this.uncover_tile(x,y);
 
                 something_uncovered = true;
@@ -175,13 +186,13 @@ uncover_by_probability() {
 
     for(let y = 0; y < this.height; y++ ) {
         for(let x = 0; x < this.width; x++ ) {
-            if(this.probability_table[y][x] < lowest && this.probability_table[y][x] >= 0) {
+            if(this.probability_table[y][x] < lowest && this.probability_table[y][x] > 0) {
                 lowest = this.probability_table[y][x]
                 coords = [x,y]
             }
         }
     }
-    console.log("best chance:", lowest);
+    console.log("\nChance for tile to be safe:", Math.round(100 - lowest), "%");
     this.uncover_tile(coords[0], coords[1]);
 }
 
@@ -192,6 +203,8 @@ uncover_tile(x,y){
 }
 
 collapse(local_mine_field, collapse_array, collapse_array_index, starting_index = 0) {
+
+
     let mine_count = collapse_array[collapse_array_index][1];
     
     let tile_list = collapse_array[collapse_array_index][0];
@@ -219,6 +232,7 @@ collapse(local_mine_field, collapse_array, collapse_array_index, starting_index 
     }
 
     for(let tile_index = starting_index; tile_index < tile_list.length; tile_index++) {
+
         let tile_x = tile_list[tile_index][0];
         let tile_y = tile_list[tile_index][1];
 
@@ -232,7 +246,7 @@ collapse(local_mine_field, collapse_array, collapse_array_index, starting_index 
 
         
         if(this.valid(local_mine_field)) {
-
+            QQ++;
             this.do_if_valid_iteration(local_mine_field, tile_x, tile_y);
             continue;
         }
@@ -244,7 +258,8 @@ collapse(local_mine_field, collapse_array, collapse_array_index, starting_index 
         mine_count--;
         //collapse_array[collapse_array_index][1] = mine_count;
         if(mine_count > 0){
-            let valid_iteration = this.collapse(local_mine_field, collapse_array, collapse_array_index, starting_index)
+            starting_index = tile_index;
+            let valid_iteration = this.collapse(local_mine_field, collapse_array, collapse_array_index, starting_index+1)
             //if(valid_iteration){return 1;}
 
         }
@@ -283,6 +298,7 @@ do_if_valid_iteration(local_mine_field, tile_x, tile_y, revert = true) {
         }
     }
     if(push) {
+
         this.valid_iterations++;
         this.valid_mine_fields.push(this.copy_matrix(local_mine_field));
     }
@@ -302,7 +318,35 @@ fill_obvious(local_mine_field, all_numbers) {
                 local_mine_field[_y][_x] = 9;
             });
         }
+
     });
+}
+
+clear_obvious(local_mine_field, all_numbers) {
+    let cleared = false;
+    let number_index = 0;
+
+    all_numbers.forEach(num => {
+        let mines_around = this.get_squares_around(num[0], num[1], local_mine_field, 9).length;
+        if(local_mine_field[num[1]][num[0]] == mines_around) {
+            let to_clear = this.get_squares_around(num[0], num[1], local_mine_field, 10);
+            
+            to_clear.forEach(tile => {
+                let t_x = tile[0];
+                let t_y = tile[1];
+
+                this.uncover_tile(t_x, t_y);
+
+                cleared = true;
+            });
+
+            //all_numbers.splice(number_index, 1);
+        }
+
+        number_index++;
+    });
+
+    return cleared;
 }
 
 /*
@@ -578,48 +622,6 @@ check_other_numbers(collapse_array, local_mine_field, return_numlist = false) {
 
 }
 */
-
-valid_mine_counts_around_numbers(mine_field_to_verify) {
-    var is_valid = true;
-
-    for(let y = 0; y < mine_field_to_verify.length; y++) {
-        for(let x = 0; x < mine_field_to_verify[0].length; x++) {
-            let square_value = mine_field_to_verify[y][x];
-
-            if(square_value >= 9)
-                continue;
-
-            if(square_value < this.get_squares_around(x, y, mine_field_to_verify, 9).length) {
-                is_valid = false;
-                break;
-            }
-
-        }
-    }
-    return is_valid;
-}
-
-
-valid(mine_field_to_verify) {
-    var is_valid = true;
-
-    for(let y = 0; y < mine_field_to_verify.length; y++) {
-        for(let x = 0; x < mine_field_to_verify[0].length; x++) {
-            let square_value = mine_field_to_verify[y][x];
-
-            if(square_value >= 9)
-                continue;
-
-            if(square_value != this.get_squares_around(x, y, mine_field_to_verify, 9).length) {
-                is_valid = false;
-                break;
-            }
-
-        }
-    }
-    return is_valid;
-}
-
 /*
 collapse(x, y, local_mine_field, value_to_test = 9) {
     depth++;
@@ -684,6 +686,50 @@ verify_numbers_around(local_mine_field, x, y, collapse_safe_tiles = false) {
     }
 }
 */
+
+
+valid_mine_counts_around_numbers(mine_field_to_verify) {
+    var is_valid = true;
+
+    for(let y = 0; y < mine_field_to_verify.length; y++) {
+        for(let x = 0; x < mine_field_to_verify[0].length; x++) {
+            let square_value = mine_field_to_verify[y][x];
+
+            if(square_value >= 9)
+                continue;
+
+            if(square_value < this.get_squares_around(x, y, mine_field_to_verify, 9).length) {
+                is_valid = false;
+                break;
+            }
+
+        }
+    }
+    return is_valid;
+}
+
+
+valid(mine_field_to_verify) {
+    var is_valid = true;
+
+    for(let y = 0; y < mine_field_to_verify.length; y++) {
+        for(let x = 0; x < mine_field_to_verify[0].length; x++) {
+            let square_value = mine_field_to_verify[y][x];
+
+            if(square_value >= 9)
+                continue;
+
+            if(square_value != this.get_squares_around(x, y, mine_field_to_verify, 9).length) {
+                is_valid = false;
+                break;
+            }
+
+        }
+    }
+    return is_valid;
+}
+
+
 copy_matrix(matrix_to_copy) {
     var copy = []
 
